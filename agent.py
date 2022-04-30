@@ -17,7 +17,7 @@ class Agent:
         self.epsilon = 0 # control the random
         self.gamma = 0.9   # discount rate
         self.memory = deque(maxlen=MAX_MEMORY) # popleft
-        self.model = Linear_QNet(11, 256, 3)
+        self.model = Linear_QNet(11, 121, 3)
         self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma)
 
     def get_state(self, game):
@@ -140,10 +140,7 @@ def train():
 
             plot_score.append(score)
             total_score += score
-            if agent.n_games > 9:
-                mean_score = sum(plot_score[-10:]) / 10
-            else:
-                mean_score = total_score / agent.n_games
+            mean_score = total_score / agent.n_games
             plot_mean_score.append(mean_score)
             plot(plot_score, plot_mean_score)
 
